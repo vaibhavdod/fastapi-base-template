@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "fastapi-base-project"
+version = "0.1.0"
+description = "FastAPI Base project for Microservices"
+authors = ["Hide <vaibhav.doddihal@oneadvanced.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+alembic = "^1.11.3"
+SQLAlchemy = {extras = ["asyncio"], version = "^2.0.20"}
+uvicorn = "^0.23.2"
+fastapi = "^0.103.0"
+celery = "^5.3.1"
+fastapi-event = "^0.1.3"
+ujson = "^5.4.0"
+aiomysql = "^0.1.1"
+tenacity = "^8.2.3"
+asyncpg = "^0.28.0"
+psycopg2-binary = "^2.9.7"
+sqlalchemy = "^2.0.20"
+pydantic-settings = "^2.0.3"
+slowapi = "^0.1.8"
+
+
+[tool.poetry.dev-dependencies]
+behave = "^1.2.6"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
