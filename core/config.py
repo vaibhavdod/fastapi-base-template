@@ -13,7 +13,7 @@ class Config(BaseSettings):
     APP_ENV: str = os.environ.get("APP_ENV", "dev")
     DEBUG: bool = True
     APP_HOST: str = "localhost"
-    APP_PORT: int = os.environ.get("APP_PORT", 8000)
+    APP_PORT: int = os.environ.get("APP_PORT", 8000) # type: ignore
     LOG_LEVEL: str = "DEBUG"
 
     DB_SECRETS_MANAGER_KEY: Union[str, None] = os.environ.get(
@@ -35,8 +35,8 @@ class Config(BaseSettings):
     # DBConfig, where there will be placeholders for read and write DB URIs
     WRITER_DB_URI: str = DB_CONNECTION_URI
     READER_DB_URI: str = DB_CONNECTION_URI
-    DB_ENGINE_POOL_SIZE: int = os.environ.get("DB_ENGINE_POOL_SIZE", 20)
-    DB_ENGINE_MAX_OVERFLOW: int = os.environ.get("DB_ENGINE_MAX_OVERFLOW", 0)
+    DB_ENGINE_POOL_SIZE: int = os.environ.get("DB_ENGINE_POOL_SIZE", 20) # type: ignore
+    DB_ENGINE_MAX_OVERFLOW: int = os.environ.get("DB_ENGINE_MAX_OVERFLOW", 0) # type: ignore
 
 
 class TestingConfig(Config):

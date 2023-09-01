@@ -3,11 +3,6 @@ from contextvars import ContextVar, Token
 from typing import Union
 
 from sqlalchemy import create_engine
-from sqlalchemy.ext.asyncio import (
-    AsyncSession,
-    async_scoped_session,
-    create_async_engine,
-)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 from sqlalchemy.sql.expression import Delete, Insert, Update
@@ -31,42 +26,6 @@ def reset_session_context(context: Token) -> None:
     session_context.reset(context)
 
 
-def create_async_session(async_db=True):
-    if async_db and config.ASYNC_WRITER_DB_URI and config.ASYNC_READER_DB_URI:
-        async_engines = {
-            "writer": create_async_engine(
-                config.ASYNC_WRITER_DB_URI, pool_recycle=config.DB_ENGINE_POOL_SIZE
-            ),
-            "reader": create_async_engine(
-                config.ASYNC_READER_DB_URI, pool_recycle=config.DB_ENGINE_POOL_SIZE
-            ),
-        }
-
-        class AsyncRoutingSession(Session):
-            def get_bind(self, mapper=None, clause=None, **kw):
-                if self._flushing or isinstance(clause, (Update, Delete, Insert)):
-                    return async_engines["writer"].sync_engine
-                else:
-                    return async_engines["reader"].sync_engine
-
-        async_session_factory = sessionmaker(
-            class_=AsyncSession,
-            sync_session_class=AsyncRoutingSession,
-        )
-
-        async_session: Union[AsyncSession, async_scoped_session] = async_scoped_session(
-            session_factory=async_session_factory,
-            scopefunc=get_session_context,
-        )
-
-        return async_session
-
-    elif async_db and (
-        config.ASYNC_WRITER_DB_URI is None or config.ASYNC_READER_DB_URI is None
-    ):
-        log.warning("Invalid Configurations: Async DB URI not provided")
-
-
 def create_session():
     # Sync DB session creation
 
@@ -85,7 +44,7 @@ def create_session():
 
     class RoutingSession(Session):
         def get_bind(self, mapper=None, clause=None, **kw):
-            if self._flushing or isinstance(clause, (Update, Delete, Insert)):
+            if self._flushing or isinstance(clause, (Update, Delete, Insert)):  # type: ignore
                 return engines["writer"]
             else:
                 return engines["reader"]
@@ -113,7 +72,5 @@ def create_session():
 
 session, SessionLocal = create_session()
 
-
-async_session = create_async_session(async_db=False)
 
 Base = declarative_base()

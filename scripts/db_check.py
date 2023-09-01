@@ -2,7 +2,6 @@
 This script is used to check if the database is awake and ready to accept connections.
 """
 
-import asyncio
 import os.path
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -36,7 +35,7 @@ wait_seconds = 1
 def init() -> None:
     try:
         # Try to create session to check if DB is awake
-        query = select(1)
+        query = select(1) # type: ignore
         session = SessionLocal()
         session.execute(query)
     except Exception as e:
