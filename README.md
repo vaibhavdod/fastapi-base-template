@@ -213,6 +213,7 @@ Read about the Poetry commands here: https://python-poetry.org/docs/cli/
 Main thing to rememeber are the following commands:
 
 1. poetry add <package_name> - installs the package and adds it to the pyproject.toml file
+   1. This will also create/update a poetry.lock file which will lock the dependencies
 2. poetry install - installs all the dependencies
 3. poetry lock - locks the dependencies. This is important for the docker build process. As it will install the dependencies from the lock file and not the pyproject.toml file.
 4. poetry update - updates the dependencies

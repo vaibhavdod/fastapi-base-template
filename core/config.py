@@ -1,12 +1,12 @@
+import logging
 import os
 from typing import Union
-import logging
+
 from pydantic_settings import BaseSettings
+
 from core.utils.config_helpers import build_database_uri, get_database_uri_from_secret
 
-
 log = logging.getLogger(__name__)
-
 
 
 class Config(BaseSettings):
@@ -16,9 +16,9 @@ class Config(BaseSettings):
     APP_PORT: int = os.environ.get("APP_PORT", 8000)
     LOG_LEVEL: str = "DEBUG"
 
-    
-
-    DB_SECRETS_MANAGER_KEY: Union[str, None]  = os.environ.get("DB_SECRETS_MANAGER_KEY", None)
+    DB_SECRETS_MANAGER_KEY: Union[str, None] = os.environ.get(
+        "DB_SECRETS_MANAGER_KEY", None
+    )
 
     if DB_SECRETS_MANAGER_KEY:
         DB_CONNECTION_URI: str = get_database_uri_from_secret(DB_SECRETS_MANAGER_KEY)

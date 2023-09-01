@@ -9,6 +9,7 @@ class LogLevels(URSEnumClass):
     """
     Log levels for the application
     """
+
     info = "INFO"
     warn = "WARN"
     error = "ERROR"

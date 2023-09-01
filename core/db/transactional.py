@@ -1,6 +1,6 @@
 from functools import wraps
 
-from core.db import session, async_session
+from core.db import async_session, session
 
 
 class AsyncTransactional:
@@ -17,7 +17,7 @@ class AsyncTransactional:
             return result
 
         return _transactional
-    
+
 
 class Transactional:
     def __call__(self, func):
