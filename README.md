@@ -1,9 +1,35 @@
 # BoilerPlate Fast API Microservice
 
+Commands to interact with the project:
+
+```yaml
+# Build the application within Docker Container
+build: 
+ docker-compose build
+
+# Run the application within Docker Container along with build
+start: 
+ docker-compose up --build
+
+# Stop the application within Docker Container
+stop: 
+ docker-compose down
+
+# Clean the application within Docker Container
+clean: 
+ docker-compose down --rmi all --volumes --remove-orphans
+
+# Run the tests within Docker Container
+run_tests: 
+./scripts/test/run_tests.sh
+
+```
+
+> Note: we might deprecate the Make file and use the above commands instead.
+
 This is a FastAPI microservice boilerplate. Which has the following features:
 
-
-## Technologies used:
+## Technologies used
 
 - FastAPI
 - Uvicorn
@@ -79,39 +105,36 @@ This is a boilerplate for a FastAPI microservice. It includes a Dockerfile, a do
 ## Installation
 
 ```bash
-$ git clone
-$ cd
-$ make build
-$ make run
+git clone
+cd
+make build
+make run
 ```
 
 ## Usage
 
 ```bash
-$ curl -X GET http://localhost:8000
+curl -X GET http://localhost:8000
 ```
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-
-
 ## References
 
 Some other places where the folder structure is inspired from:
-1. https://betterprogramming.pub/fastapi-best-practices-1f0deeba4fce
-2. https://bitestreams.com/blog/fastapi_sqlalchemy/
-3. https://alembic.sqlalchemy.org/en/latest/tutorial.html?source=post_page-----5c53d3880f12--------------------------------#the-migration-environment
-4. In future we can avoid schema and model definition to be different using this: https://github.com/tiangolo/sqlmodel
-5. Postgres Async connection: https://docs.sqlalchemy.org/en/14/dialects/postgresql.html#module-sqlalchemy.dialects.postgresql.asyncpg
-6. Poetry commands: https://python-poetry.org/docs/cli/
-7. https://testdriven.io/blog/fastapi-docker-traefik/
-8. understanding the SQLAlchemy session strategy: https://stackoverflow.com/questions/12223335/sqlalchemy-creating-vs-reusing-a-session
-   1. https://dev.to/behainguyen/python-sqlalchemy-understanding-sessions-and-associated-queries-12a7
-   2. 
 
-
+1. <https://betterprogramming.pub/fastapi-best-practices-1f0deeba4fce>
+2. <https://bitestreams.com/blog/fastapi_sqlalchemy/>
+3. <https://alembic.sqlalchemy.org/en/latest/tutorial.html?source=post_page-----5c53d3880f12--------------------------------#the-migration-environment>
+4. In future we can avoid schema and model definition to be different using this: <https://github.com/tiangolo/sqlmodel>
+5. Postgres Async connection: <https://docs.sqlalchemy.org/en/14/dialects/postgresql.html#module-sqlalchemy.dialects.postgresql.asyncpg>
+6. Poetry commands: <https://python-poetry.org/docs/cli/>
+7. <https://testdriven.io/blog/fastapi-docker-traefik/>
+8. understanding the SQLAlchemy session strategy: <https://stackoverflow.com/questions/12223335/sqlalchemy-creating-vs-reusing-a-session>
+   1. <https://dev.to/behainguyen/python-sqlalchemy-understanding-sessions-and-associated-queries-12a7>
+   2.
 
 ---
 
@@ -120,7 +143,6 @@ Some other places where the folder structure is inspired from:
 ### 1. Create a new project directory
 
 Based on the above recommendations, we will create a new project directory as per the project name. Ensure you have the corresponding repository created and link the directory based on the instructions provided by Github.
-
 
 ### 2. Docker Compose File
 
@@ -159,7 +181,6 @@ We will create a Dockerfile in the root of the project directory. This file will
 
 > Note: we are not using "FROM tiangolo/uvicorn-gunicorn-fastapi:python3.*" base image. As this supports different folder structure which has nested app folder.
 
-
 ### 4. Makefile
 
 We will create a Makefile in the root of the project directory. This file will contain the following:
@@ -170,29 +191,24 @@ We will create a Makefile in the root of the project directory. This file will c
 4. Run the application in production mode
 5. Run the application in test mode
 
-
 ### 5. Application Configurations
-
 
 First, we will create a config.py file in the core folder of the project directory. This file will contain base configurations driven from environement files. Then we will define the logging and database configurations in the logging.py and database.py files respectively. These files will be in the core folder of the project directory.
 
 Rememeber we create the constructs of the classes but instantiate them in the main.py file.
 
-
 ### 6. Alembic Setup
 
 Read the below resources, after the new model is defined it is mandatory to place them in the env.py file under the alembic folder. This is required for the migration to work.
 
-1. https://ahmed-nafies.medium.com/fastapi-with-sqlalchemy-postgresql-and-alembic-and-of-course-docker-f2b7411ee396
-2. https://alembic.sqlalchemy.org/en/latest/tutorial.html?source=post_page-----5c53d3880f12--------------------------------#the-migration-environment
-
-
+1. <https://ahmed-nafies.medium.com/fastapi-with-sqlalchemy-postgresql-and-alembic-and-of-course-docker-f2b7411ee396>
+2. <https://alembic.sqlalchemy.org/en/latest/tutorial.html?source=post_page-----5c53d3880f12--------------------------------#the-migration-environment>
 
 ### 7. Database Setup
 
-We have basic session setup to support async database connections. But currently we will support on sync - the most common way for SQLAlchemy connection. 
+We have basic session setup to support async database connections. But currently we will support on sync - the most common way for SQLAlchemy connection.
 
-Also, with in the scope of the SQLAlchemy we are using the scoped session strategy. Read more about it here: https://dev.to/behainguyen/python-sqlalchemy-understanding-sessions-and-associated-queries-12a7
+Also, with in the scope of the SQLAlchemy we are using the scoped session strategy. Read more about it here: <https://dev.to/behainguyen/python-sqlalchemy-understanding-sessions-and-associated-queries-12a7>
 
 More detailed reading can come from main documentation of SQLAlchemy and exploring open source projects.
 
@@ -208,7 +224,7 @@ We will use Poetry for dependency management. We will create a pyproject.toml fi
 
 There are other layers but we will add them as per our reqirements for the future.
 
-Read about the Poetry commands here: https://python-poetry.org/docs/cli/
+Read about the Poetry commands here: <https://python-poetry.org/docs/cli/>
 
 Main thing to rememeber are the following commands:
 
@@ -219,3 +235,26 @@ Main thing to rememeber are the following commands:
 4. poetry update - updates the dependencies
 5. poetry remove <package_name> - removes the package and updates the pyproject.toml file
 6. poetry show - shows the dependencies
+
+### 9. Linting and Formatting
+
+We are using the following based on the different usecases and requirements:
+
+1. mypy
+2. flake8
+3. black
+4. isort
+
+Please check details of how to run these things in the `/scripts/devops` folder.
+
+### 10. Testing
+
+We are using the pytest for our test case execution.
+
+Since we are using Poetry algon wtih docker on local run also, we will want to build a fresh instance for our tests and then run it inside the docker container.
+
+Command used:
+
+```bash
+./scripts/test/run_tests.sh
+```

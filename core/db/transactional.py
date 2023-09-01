@@ -5,7 +5,7 @@ from core.db import session
 
 class Transactional:
     def __call__(self, func):
-        @wraps(func)
+        @wraps(func) # type: ignore
         def _transactional(*args, **kwargs):
             try:
                 result = func(*args, **kwargs)
