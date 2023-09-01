@@ -39,7 +39,7 @@ RUN chmod +x ./scripts/prestart.sh
 RUN chmod +x ./scripts/db/db_check.py
 
 
-HEALTHCHECK CMD curl --fail http://0.0.0.0:${APP_PORT}/urs/health/ || exit 1
+HEALTHCHECK CMD curl --fail http://0.0.0.0:${APP_PORT}/api/v1/${API_PREFIX}/health/ || exit 1
 
 EXPOSE ${APP_PORT}
 

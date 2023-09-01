@@ -1,45 +1,45 @@
 version: '3.7'
 
 services:
-  urs-dev-api:
+  api:
     build:
       context: .
       args:
         - APP_ENV=dev # For local flow we will use test.txt as we will have to run test cases as well
       dockerfile: Dockerfile
-    container_name: urs-api
+    container_name: api
     env_file:
       - .env
     ports:
       - '8013:8000'
     tty: true
     links:
-      - "urs-db:database"
+      - "db:database"
     depends_on:
-      - urs-db
+      - db
     restart: always
     networks:
-      - urs-network
+      - api-network
       
-  urs-db:
+  db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_DB: urs_db
-      POSTGRES_USER: cr_advanced
-      POSTGRES_PASSWORD: cr_advanced
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
-      - urs-volume:/var/lib/postgresql/data
+      - api-volume:/var/lib/postgresql/data
     ports:
       - "5413:5432"
     restart: always
     networks:
-      - urs-network
+      - api-network
 
 
 volumes:
-  urs-volume:
+  api-volume:
 
 networks:
-  urs-network:
+  api-network:
     driver: 'bridge'
 

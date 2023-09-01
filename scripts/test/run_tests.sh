@@ -12,7 +12,7 @@ docker-compose up -d
 
 
 # Run tests
-docker-compose exec -T urs-dev-api bash ./scripts/test/exec_tests.sh "$@"
+docker-compose exec -T api bash ./scripts/test/exec_tests.sh "$@"
 # need to put in test case execution separately for the core module
 
 
