@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "FastAPI Base project for Microservices"
 authors = ["Hide <vaibhav.doddihal@oneadvanced.com>"]
 
+
 [tool.poetry.dependencies]
 python = "^3.11"
 alembic = "^1.11.3"
@@ -22,8 +23,22 @@ pydantic-settings = "^2.0.3"
 slowapi = "^0.1.8"
 
 
-[tool.poetry.dev-dependencies]
-behave = "^1.2.6"
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.5.1"
+black = "^23.7.0"
+isort = "^5.12.0"
+autoflake = "^2.2.1"
+flake8 = "^6.1.0"
+pytest = "^7.4.0"
+sqlalchemy-stubs = "^0.4"
+pytest-cov = "^4.1.0"
+
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 88
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
