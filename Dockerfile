@@ -36,7 +36,7 @@ ENV PYTHONPATH=/
 
 RUN chmod +x ./scripts/startup.sh
 RUN chmod +x ./scripts/prestart.sh
-RUN chmod +x ./scripts/db_check.py
+RUN chmod +x ./scripts/db/db_check.py
 
 
 HEALTHCHECK CMD curl --fail http://0.0.0.0:${APP_PORT}/urs/health/ || exit 1
