@@ -5,6 +5,8 @@ autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in
 black app
 isort app
 
+
 autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place core --exclude=__init__.py
 black core
 isort core
+
